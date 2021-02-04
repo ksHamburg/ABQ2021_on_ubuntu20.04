@@ -5,7 +5,9 @@
 Installing abaqus on an ubuntu OS always has been and probably always will be a hassle since abaqus does not support ubuntu natively. However, due to several reasons such as commfort, popularity and mostly lazyness I never considered switching to CentOS and rather fought with the crudities of installing abaqus within ubuntu. Till recently that worked well and there were always ways to get abaqus running smoothly. Some sources of wisdom and inspiration can be found under the following links:
 
 https://polymerfem.com/install-abaqus-2020-on-ubuntu-19-10/
+
 https://github.com/Kevin-Mattheus-Moerman/Abaqus-Installation-Instructions-for-Ubuntu/issues/1
+
 https://github.com/JoKalliauer/abaqus-centos-7-singularity
 
 Unfortunately, for abaqus 2021 analysis do not terminate automatically and user subroutines are not performing smoothly in an ubuntu OS setting which is very anoying. In the end we just want to use abaqus straight away. Coping with installation issues is always frustrating and does not create any value. Therefore I digged the internet to find solutions to the installation problem and am presenting my cook book recepie that shoul run out of the box.
