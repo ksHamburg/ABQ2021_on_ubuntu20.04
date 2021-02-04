@@ -4,16 +4,32 @@
 
 Installing abaqus on an ubuntu OS always has been and probably always will be a hassle since abaqus does not support ubuntu natively. However, due to several reasons such as commfort, popularity and mostly lazyness I never considered switching to CentOS and rather fought with the crudities of installing abaqus within ubuntu. Till recently that worked well and there were always ways to get abaqus running smoothly. Some sources of wisdom and inspiration can be found under the following links:
 
+https://polymerfem.com/install-abaqus-2020-on-ubuntu-19-10/
+https://github.com/Kevin-Mattheus-Moerman/Abaqus-Installation-Instructions-for-Ubuntu/issues/1
+https://github.com/JoKalliauer/abaqus-centos-7-singularity
 
+Unfortunately, for abaqus 2021 analysis do not terminate automatically and user subroutines are not performing smoothly in an ubuntu OS setting which is very anoying. In the end we just want to use abaqus straight away. Coping with installation issues is always frustrating and does not create any value. Therefore I digged the internet to find solutions to the installation problem and am presenting my cook book recepie that shoul run out of the box.
 
+The key incredient is to run abaqus in a docker container that, in some ways, virtualized the supported OS centos. I do not want to get lost in the technical details and start straight away. But first things first, let us recapitulate our starting point and initial configuration:
 
-```
-sudo apt-get install docker
-```
+- Ubuntu 20.04 64bit
+- working git command (```sudo apt-get install git```)
 
+Our goal is to install:
+
+- abaqus 2021
+- intel fortran compiler for abaqus subroutines (```ifort```-command)
+
+So let's get started. First we need to get docker by downloading docker-desktop from https://www.docker.com/products/docker-desktop.
+
+Now we need to set up the docker container. Therefore we create a temporary working directory and cd into it.
 ```
 mkdir /tmp/docker
 cd /tmp/docker
+```
+Next we need to copy the docker file provided in this githubg by
+```
+
 ```
 
 now copy the provied docker file in the Folder ```/tmp/docker``` 
