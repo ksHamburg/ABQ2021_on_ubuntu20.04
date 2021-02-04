@@ -24,63 +24,55 @@ So let's get started. First we need to get docker by downloading docker-desktop 
 
 Now we need to set up the docker container. Therefore we create a temporary working directory and cd into it.
 ```
-mkdir /tmp/docker
-cd /tmp/docker
+git clone https://github.com/ksHamburg/ABQ2021_on_ubuntu20.04 /tmp/docker_for_abq/
+cd /tmp/docker_for_abq
 ```
-Next we need to copy the docker file provided in this githubg by
-```
-
-```
-
-now copy the provied docker file in the Folder ```/tmp/docker``` 
-
-build the docker image
+We build the docker image via
 ```
 docker build -t centos_abq .
 ```
-
+and allow GUI-applications to open and connect to the ubuntu xserver when running the created container via
 ```
 xhost +
 ```
-
+Now we run the container interactively by dropping the following command in the console
 ```
 sudo docker run -i -t -v /home:/home --privileged=true --net=host --env="DISPLAY" --volume="$HOME/.Xauthority:/root/.Xauthority:rw" centos_abq
 ```
-
-```-v /home:/home``` mounts the host ```/home``` into the ```/home``` of the docker container.
-
-inside the docker container we need to install abaqus and the intel fortran compiler. I like to have a clean installation which is the reason why we will install both software packages into  ```/opt/SIMULIA``` and ```/opt/intel```.
-
+which opens the container and leaves the container console open ready for execution of commands.
+The option
+```-v /home:/home``` mounts the host ```/home``` directory into the ```/home``` directory of the docker container.
+Next we need to install abaqus and the intel fortran compiler. For this operation to work it is obviously necessary that the installation files are located within the hosts ```/home``` directory (for instance in the ```/home/user/Downloads``` directory).
+Since I like to have a clean installation, we will install both software packages into  ```/opt/SIMULIA``` and ```/opt/intel```.
+Therefore we drop
 ```
-/.../AM_SIM_Abaqus_Extend.AllOS/1/StartGUI.sh
+/home/user/Downloads/AM_SIM_Abaqus_Extend.AllOS/1/StartGUI.sh
 ```
-
-
+for the abaqus installation. This installation should run smoothly due to the preinstalled required libraries specified in the ```Dockerfile``` of this github repository.
+Last but not least the intel fortran compiler installation might be envoked via
 ```
-/.../parallel_studio_xe_2020_update4_cluster_edition/install_GUI.sh
+/home/user/Downloads//parallel_studio_xe_2020_update4_cluster_edition/install_GUI.sh
 ```
-do not worry about the violated prerequisites that the detection of cpu support is not met and the the kernel source directory is not found. In my expierence this is not influencing the ifort capabilities which we need to code abaqus user subroutines.
-
-
-now we need to set up a start up script inside the docker container such that the ```ifort``` is available on runing the image.
+Here we do not worry about the violated prerequisites, which are a non-working detection of the cpu and a kernel source directory which cannot be found. These issues are related to the functionallity of docker-containers which use or forward the hosts kernel in someway that the intel compiler does not understand natively. In my expierence this is not influencing the ```ifort``` capabilities which we need to code abaqus user subroutines. Furthermore we also do not worry about missing 32-bit libraries. These will interfere with abaqus paralleization capabilities if installed. 
+Eventually, we need to set up source command, that sources the intel compilervariables when running the docker container. In order to do that we drop
 ```
 echo "source /opt/intel/bin/compilervars.sh intel64" >> /etc/bashrc
 ```
-
-now we are finished with installing everything an 
+which adds the above source-command to the ```/etc/bashrc```.
+Finally we are finished with installing abaqus and the intel compiler and exit the docker container via  
 ```
 exit
 ```
-the docker container. 
-Next all the changes we just made need to be committed to the docker image. In order to do that we have to find out the docker container id vi 
+
+Next, all the changes we just made need to be committed to the docker image. In order to do that we have to find out the docker container id via 
 ```
 sudo docker ps -a
 ```
-It is typically the first entry of the first image showing up. After that we commit the changes via 
+Typically, it is the first entry of the first image showing up. With this ```container_id``` we commit the changes via 
 ```
 sudo docker commit containder_id centos_abq
 ```
-and we are done installing.
+and are done installing.
 
 To start abaqus we type the following commands into the ubuntu console:
 ```
