@@ -1,8 +1,11 @@
-### ABQ2021_on_ubuntu20.04
+# ABQ2021_on_ubuntu20.04
 
-# How to properly install abaqus 2021 on Ubuntu 20.04 LTS using a docker container
+## How to properly install abaqus 2021 on Ubuntu 20.04 LTS using a docker container
 
-Installing abaqus on an ubuntu OS always has been and always will be a hassle since abaqus does not support ubuntu natively. 
+Installing abaqus on an ubuntu OS always has been and probably always will be a hassle since abaqus does not support ubuntu natively. However, due to several reasons such as commfort, popularity and mostly lazyness I never considered switching to CentOS and rather fought with the crudities of installing abaqus within ubuntu. Till recently that worked well and there were always ways to get abaqus running smoothly. Some sources of wisdom and inspiration can be found under the following links:
+
+
+
 
 ```
 sudo apt-get install docker
@@ -73,10 +76,3 @@ which will open the docker container in the interactive mode. In the console of 
 /opt/SIMULIA/Commands/abaqus cae -mesa
 ```
 to finally start and enjoy abaqus 2021.
-
-
-
-
-
-
-
